@@ -18,16 +18,7 @@ jobs:
         run: npm ci
       - name: Build package
         run: grunt build
-      - name: Publish npm package
-        run: npm publish
+      - name: Release with Notes
+        uses: softprops/action-gh-release@v1
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish NuGet package
-        id: publish_nuget
-        uses: laget-se/publish-nuget@v2
-        with:
-          NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
-          NUSPEC_FILE: nuget/bootstrap-select.nuspec
-          PACKAGE_NAME: bootstrap-select
-          VERSION_FILE_PATH: nuget/bootstrap-select.nuspec
-          VERSION_REGEX: ^\s*<version>(.*)<\/version>\s*$
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
